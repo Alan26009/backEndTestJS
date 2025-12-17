@@ -16,6 +16,7 @@ const structure = {
   };
   
   console.log(getSubcategoryPath(structure));
+  console.log(findCategoryById(structure, 6));
   
   
   function getSubcategoryPath(subCategory) {
@@ -36,4 +37,18 @@ const structure = {
   
     dfs(subCategory, "");
     return result;
+  }
+
+
+  function findCategoryById(root, targetId) {
+    if (!root) return null;
+    if (root.id === targetId) return root;
+  
+    const subs = root.subcategories || [];
+    for (const child of subs) {
+      const found = findCategoryById(child, targetId);
+      if (found) return found;
+    }
+  
+    return null;
   }
